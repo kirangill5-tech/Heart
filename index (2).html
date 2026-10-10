@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>I love you ❤️</title>
+<meta name="description" content="A heart made of I love you in every language.">
+<meta property="og:title" content="I love you ❤️">
+<meta property="og:description" content="A heart made of I love you in every language. Open it, it's for you.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#2a0a14">
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; }
+  body {
+    background: radial-gradient(circle at 50% 35%, #4a0f24 0%, #2a0a14 55%, #14050a 100%);
+    color: #ffe9ee;
+    font-family: "Segoe UI", system-ui, -apple-system, "Noto Sans", sans-serif;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 1.2rem; padding: 1rem; overflow-x: hidden; text-align: center;
+  }
+  #heart {
+    width: min(92vw, 62vh, 620px);
+    height: min(92vw, 62vh, 620px);
+    animation: beat 1.6s ease-in-out infinite;
+    filter: drop-shadow(0 0 28px rgba(255, 40, 90, .45));
+  }
+  @keyframes beat {
+    0%, 100% { transform: scale(1); }
+    12% { transform: scale(1.06); }
+    24% { transform: scale(1); }
+    36% { transform: scale(1.04); }
+    50% { transform: scale(1); }
+  }
+  h1 {
+    font-family: Georgia, "Times New Roman", serif;
+    font-weight: 400; font-style: italic;
+    font-size: clamp(2.2rem, 8vw, 4rem);
+    color: #ff4d7a;
+    text-shadow: 0 0 22px rgba(255, 77, 122, .5);
+  }
+  .share {
+    display: inline-flex; align-items: center; gap: .6rem;
+    background: #25d366; color: #06361a; border: 0; border-radius: 999px;
+    padding: .8rem 1.5rem; font-size: 1rem; font-weight: 700; cursor: pointer;
+    text-decoration: none; transition: transform .15s;
+  }
+  .share:hover { transform: translateY(-2px); }
+  .share:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+  .share svg { width: 1.3rem; height: 1.3rem; fill: currentColor; }
+  @media (prefers-reduced-motion: reduce) { #heart { animation: none; } }
+</style>
+</head>
+<body>
+
+<canvas id="heart" aria-label="A heart made of the words I love you in many languages" role="img"></canvas>
+<h1>I love you</h1>
+
+<a id="wa" class="share" href="#" target="_blank" rel="noopener">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.1-.2.3-.8.9-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.4-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5-.1-.1-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.100 3.200 5.100 4.500.7.3 1.300.5 1.700.6.7.2 1.400.2 1.900.1.600-.1 1.700-.7 1.900-1.400.2-.7.2-1.300.2-1.400-.1-.1-.3-.2-.6-.3zM12 2a10 10 0 0 0-8.600 15.100L2 22l5-1.300A10 10 0 1 0 12 2z"/></svg>
+  Send on WhatsApp
+</a>
+
+<script>
+// "I love you" in many languages
+const PHRASES = [
+  "I love you", "Te amo", "Je t'aime", "Ich liebe dich", "Ti amo", "Eu te amo",
+  "Ik hou van je", "Jag älskar dig", "Jeg elsker deg", "Jeg elsker dig", "Minä rakastan sinua",
+  "Szeretlek", "Miluji tě", "Kocham cię", "Te iubesc", "Volim te", "Ljubim te",
+  "Σ' αγαπώ", "Я тебя люблю", "Я тебе кохаю", "Обичам те", "Mi amas vin",
+  "Seni seviyorum", "أحبك", "אני אוהב אותך", "دوستت دارم", "میں تم سے پیار کرتا ہوں",
+  "मैं तुमसे प्यार करता हूँ", "আমি তোমাকে ভালোবাসি", "நான் உன்னை காதலிக்கிறேன்",
+  "నేను నిన్ను ప్రేమిస్తున్నాను", "ഞാൻ നിന്നെ സ്നേഹിക്കുന്നു", "ನಾನು ನಿನ್ನನ್ನು ಪ್ರೀತಿಸುತ್ತೇನೆ",
+  "હું તને પ્રેમ કરું છું", "ਮੈਂ ਤੈਨੂੰ ਪਿਆਰ ਕਰਦਾ ਹਾਂ", "मी तुझ्यावर प्रेम करतो", "මම ඔබට ආදරෙයි",
+  "我爱你", "我愛你", "愛してる", "사랑해", "Tôi yêu bạn", "ฉันรักคุณ", "Aku cinta kamu",
+  "Mahal kita", "Saya cintakan awak", "Nakupenda", "Ninakupenda", "Ndinokuda", "Ek is lief vir jou",
+  "Ik hou van jou", "Ég elska þig", "Táim i ngrá leat", "Rwy'n dy garu di", "Maite zaitut",
+  "T'estimo", "Te quiero", "Mahal na mahal kita", "Aloha au iā ʻoe", "Ua alofa ia te oe",
+  "Mo nifẹ rẹ", "Ina son ka", "Waan ku jecelahay", "მიყვარხარ", "Ես քեզ սիրում եմ",
+  "Men seni sevaman", "Мен сені сүйемін", "Би чамд хайртай", "ངས་ཁྱེད་ལ་དགའ།", "ខ្ញុំស្រលាញ់អ្នក",
+  "ຂ້ອຍຮັກເຈົ້າ", "ကျွန်တော် မင်းကို ချစ်တယ်", "Ƙaunata", "Ti voglio bene", "Ich hab dich lieb"
+];
+
+const COLORS = ["#ff2e63", "#ff4d7a", "#ff6b95", "#ff8fab", "#ffb3c6", "#e8184d", "#ffd0dc"];
+
+const canvas = document.getElementById("heart");
+const ctx = canvas.getContext("2d");
+
+function heartPath(c, s) {
+  // Heart outline in a square of size s
+  c.beginPath();
+  c.moveTo(.5 * s, .93 * s);
+  c.bezierCurveTo(.12 * s, .66 * s, .0 * s, .38 * s, .1 * s, .22 * s);
+  c.bezierCurveTo(.2 * s, .04 * s, .44 * s, .04 * s, .5 * s, .26 * s);
+  c.bezierCurveTo(.56 * s, .04 * s, .80 * s, .04 * s, .9 * s, .22 * s);
+  c.bezierCurveTo(1.0 * s, .38 * s, .88 * s, .66 * s, .5 * s, .93 * s);
+  c.closePath();
+}
+
+function draw() {
+  const dpr = window.devicePixelRatio || 1;
+  const size = canvas.clientWidth;
+  canvas.width = canvas.height = Math.round(size * dpr);
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  ctx.clearRect(0, 0, size, size);
+
+  // soft base so gaps between words still read as a heart
+  heartPath(ctx, size);
+  ctx.fillStyle = "rgba(120, 10, 40, .55)";
+  ctx.fill();
+
+  ctx.save();
+  heartPath(ctx, size);
+  ctx.clip();
+
+  const fs = Math.max(11, size / 30);
+  const lineH = fs * 1.32;
+  ctx.textBaseline = "middle";
+  ctx.textAlign = "left";
+
+  let p = 0;
+  for (let y = size * 0.03, row = 0; y < size * 0.96; y += lineH, row++) {
+    let x = -((row * 37) % 90);
+    while (x < size) {
+      const text = PHRASES[p % PHRASES.length];
+      p++;
+      // I love you (the first one) is a little bolder
+      const bold = (p - 1) % PHRASES.length === 0;
+      ctx.font = (bold ? "700 " : "500 ") + fs + 'px "Segoe UI", "Noto Sans", "Noto Sans Devanagari", "Noto Sans Arabic", "Noto Sans CJK JP", sans-serif';
+      ctx.fillStyle = COLORS[(p * 3 + row) % COLORS.length];
+      ctx.fillText(text, x, y);
+      x += ctx.measureText(text).width + fs * 0.9;
+    }
+  }
+  ctx.restore();
+
+  // glowing edge
+  heartPath(ctx, size);
+  ctx.lineWidth = Math.max(2, size / 150);
+  ctx.strokeStyle = "#ff4d7a";
+  ctx.stroke();
+}
+
+draw();
+let t;
+window.addEventListener("resize", () => { clearTimeout(t); t = setTimeout(draw, 120); });
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(draw);
+
+// WhatsApp share: sends this page's own link
+const wa = document.getElementById("wa");
+const msg = "I love you ❤️ Open this: " + location.href;
+wa.href = "https://wa.me/?text=" + encodeURIComponent(msg);
+</script>
+</body>
+</html>
